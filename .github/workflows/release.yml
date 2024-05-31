@@ -21,13 +21,15 @@ jobs:
         run: |
           COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
           COMMIT_ID=$(git log -1 --pretty=format:'%H')
-          echo "RELEASE_BODY=Commit: $COMMIT_MESSAGE ($COMMIT_ID)" >> $GITHUB_ENV
+          RELEASE_DATE=$(date +%Y-%m-%d)
+          COMMIT_URL="https://https://github.com/CubeBeveled/server-sided/commit/$COMMIT_ID"
+          echo "RELEASE_BODY=Commit: $COMMIT_MESSAGE [$COMMIT_ID]($COMMIT_URL)  $RELEASE_DATE" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
         with:
-          tag_name: "latest"
+          tag_name: "latest-$(date +%Y%m%d%H%M%S)"
           release_name: "Latest"
           body: ${{ env.RELEASE_BODY }}
           draft: false
