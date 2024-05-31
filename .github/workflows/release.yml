@@ -1,0 +1,41 @@
+name: Create Release with Mods Zip
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Zip mods folder
+        run: zip -r mods.zip mods
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const response = await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: 'latest',
+              name: 'latest',
+              body: 'Automatic release from GitHub Actions',
+              draft: false,
+              prerelease: false
+            });
+            return response.data.upload_url;
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./mods.zip
+          asset_name: mods.zip
+          asset_content_type: application/zip
