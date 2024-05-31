@@ -18,19 +18,16 @@ jobs:
 
       - name: Create GitHub Release
         id: create_release
-        uses: actions/github-script@v6
+        uses: actions/create-release@v1
         with:
-          script: |
-            const response = await github.rest.repos.createRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag_name: 'latest',
-              name: 'latest',
-              body: 'Automatic release from GitHub Actions',
-              draft: false,
-              prerelease: false
-            });
-            return response.data.upload_url;
+          tag_name: "latest"
+          release_name: "latest"
+          body: "Automatic release from GitHub Actions"
+          draft: false
+          prerelease: false
+          generate_release_notes: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
