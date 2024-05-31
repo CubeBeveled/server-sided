@@ -39,9 +39,6 @@ jobs:
                 throw error;
               }
             }
-          run: |
-            git tag -d latest
-            git push origin :refs/tags/latest
 
       - name: Delete existing tag
         if: steps.check_release.outputs.release_id != ''
