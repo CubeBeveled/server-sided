@@ -16,32 +16,6 @@ jobs:
       - name: Zip mods folder
         run: zip -r mods.zip mods
 
-      - name: Do release checks
-        id: check_release
-        uses: actions/github-script@v6
-        with:
-          script: |
-            let releaseId = null;
-            try {
-              const release = await github.rest.repos.getReleaseByTag({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                tag: 'latest'
-              });
-              
-              releaseId = release.data.id;
-            } catch (error) {
-              if (error.status === 404) {
-                await github.rest.repos.deleteRelease({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  release_id: releaseId
-                });
-              } else {
-                throw error;
-              }
-            }
-
       - name: Get latest commit data
         id: get_commit_info
         run: |
