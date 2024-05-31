@@ -28,7 +28,7 @@ jobs:
                 repo: context.repo.repo,
                 tag: 'latest'
               });
-
+              
               releaseId = release.data.id;
             } catch (error) {
               if (error.status === 404) {
@@ -42,12 +42,6 @@ jobs:
               }
             }
 
-      - name: Delete existing tag
-        if: steps.check_release.outputs.release_id != ''
-        run: |
-          git tag -d latest
-          git push origin :refs/tags/latest
-
       - name: Get latest commit data
         id: get_commit_info
         run: |
@@ -59,11 +53,11 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         with:
+          tag_name: "latest"
           release_name: "Latest"
           body: ${{ env.RELEASE_BODY }}
           draft: false
           prerelease: false
-          generate_release_notes: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
