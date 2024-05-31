@@ -21,19 +21,21 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            let releaseId = null;
             try {
               const release = await github.rest.repos.getReleaseByTag({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 tag: 'latest'
               });
-              core.setOutput('release_id', release.data.id);
+              
+              releaseId = release.data.id;
             } catch (error) {
               if (error.status === 404) {
                 await github.rest.repos.deleteRelease({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  release_id: steps.check_release.outputs.release_id
+                  release_id: releaseId
                 });
               } else {
                 throw error;
