@@ -9,3 +9,4 @@ A modpack that only needs to be installed server side
   * curl is required
 * Run start.bat or start.sh depending on your OS
   * This will just start the fabric server
+  * **NOTE:** The server will most probably crash on first startup due to a tick timeout error because its generating the world. After the crash, restart it, it should work. If this crash didnt happen, congrats! You have good server hardware
