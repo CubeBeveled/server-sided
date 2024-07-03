@@ -19,13 +19,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get latest commit data
-        run: |
-          COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
-          COMMIT_ID=$(git log -1 --pretty=format:'%H')
-          RELEASE_DATE=$(date +%Y-%m-%d)
-          COMMIT_URL="https://https://github.com/CubeBeveled/server-sided/commit/$COMMIT_ID"
-          echo "RELEASE_BODY=Commit: $COMMIT_MESSAGE [$COMMIT_ID]($COMMIT_URL)  $RELEASE_DATE" >> $GITHUB_ENV
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
