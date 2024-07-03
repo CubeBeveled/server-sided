@@ -13,34 +13,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Zip mods folder
+      - name: Compress mods folder
         run: zip -r mods.zip mods
+  release:
+    runs-on: ubuntu-latest
 
+    steps:
       - name: Get latest commit data
-        id: get_commit_info
         run: |
           COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
           COMMIT_ID=$(git log -1 --pretty=format:'%H')
           RELEASE_DATE=$(date +%Y-%m-%d)
           COMMIT_URL="https://https://github.com/CubeBeveled/server-sided/commit/$COMMIT_ID"
           echo "RELEASE_BODY=Commit: $COMMIT_MESSAGE [$COMMIT_ID]($COMMIT_URL)  $RELEASE_DATE" >> $GITHUB_ENV
-
-      - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
-        with:
-          tag_name: "release-$(date +%Y-%m-%d)"
-          release_name: "Latest"
-          body: ${{ env.RELEASE_BODY }}
-          draft: false
-          prerelease: false
+      - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./mods.zip
-          asset_name: mods.zip
-          asset_content_type: application/zip
+          tag: ${{ github.ref_name }}
+        run: |
+          gh release create "$tag" \
+          --repo="$GITHUB_REPOSITORY" \
+          --title="${tag#v}" \
+          --generate-notes
