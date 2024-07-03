@@ -10,3 +10,27 @@ A modpack that only needs to be installed server side
 * Run start.bat or start.sh depending on your OS
   * This will just start the fabric server
   * **NOTE:** The server will most probably crash on first startup due to a tick timeout error because its generating the world. After the crash, restart it, it should work. If this crash didnt happen, congrats! You have good server hardware
+
+# Known Errors
+
+```
+[15:11:31] [Worker-Main-5/ERROR]: Couldn't parse element loot_tables:ctov:chests/village/village_forager
+com.google.gson.JsonSyntaxException: Missing expand, expected to find a Boolean
+```
+* Description: some CTOV loot table failed to be parsed
+* Fix: not needed
+* Effects: none
+* Side effects: none
+___
+```
+[15:13:52] [Server Watchdog/ERROR]: A single server tick took 60.01 seconds (should be max 0.05)
+[15:13:52] [Server Watchdog/ERROR]: Considering it to be crashed, server will forcibly shutdown.
+Crash report:
+---- Minecraft Crash Report ----
+
+```
+* Description: The server was too busy generating the world, and it considers itself crashed since a tick took so long
+* Fix: Start the server again
+* Effects: The world has been created and the spawn area generated
+* Side effects: Can scare some people and think the modpack is broken
+___
