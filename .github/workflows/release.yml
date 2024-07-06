@@ -31,9 +31,10 @@ jobs:
 
       - name: Create release zip
         run: |
-          zip -r release/${{ env.RELEASE_VERSION }}.zip . \
+          zip -r release/server-sided.zip . \
               -x ".git/*" \
               -x ".github/*" \
+              -x "README.md" \
 
       - name: Release under current tag
         uses: "marvinpinto/action-automatic-releases@latest"

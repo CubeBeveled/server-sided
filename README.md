@@ -34,3 +34,6 @@ Crash report:
 * Effects: The world has been created and the spawn area generated
 * Side effects: Can scare some people and think the modpack is broken
 ___
+
+# Yoink Credits
+* Auto release workflow yoinked from the [GT New Horizons](https://github.com/GTNewHorizons/GT-New-Horizons-Modpack) modpack
