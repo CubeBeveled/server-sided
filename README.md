@@ -1,6 +1,12 @@
 # Server sided
 A modpack that only needs to be installed server side
 
+# Minimum system requirements
+* Good CPU
+* 8 GB of ram
+* 2 GB disk
+* Network connection
+
 # How to install
 * Download this repository via [this link](https://codeload.github.com/CubeBeveled/server-sided/zip/refs/heads/main)
 * Unzip it
