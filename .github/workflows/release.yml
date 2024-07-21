@@ -37,10 +37,10 @@ jobs:
               -x "README.md" \
 
       - name: Release under current tag
-        uses: "marvinpinto/action-automatic-releases@latest"
+        uses: "0xDylan/action-auto-releases-n20@v1.1"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "${{ env.RELEASE_VERSION }}"
+          automatic_release_tag: "latest"
           prerelease: false
-          title: "${{ env.RELEASE_VERSION }}"
+          title: "Latest Mods"
           files: release/*
