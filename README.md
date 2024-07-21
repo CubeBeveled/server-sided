@@ -1,4 +1,5 @@
 # Server sided
+[![CodeFactor](https://www.codefactor.io/repository/github/cubebeveled/server-sided/badge)](https://www.codefactor.io/repository/github/cubebeveled/server-sided)<br>
 A modpack that only needs to be installed server side
 
 # Minimum system requirements
