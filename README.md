@@ -2,7 +2,7 @@
 A modpack that only needs to be installed server side
 
 # Minimum system requirements
-* Good CPU
+* Good CPU (The worst the cpu, the slower the server will be)
 * 8 GB of ram
 * 2 GB disk
 * Network connection
