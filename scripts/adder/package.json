@@ -15,7 +15,7 @@
     "url": "https://github.com/CubeBeveled/server-sided/issues"
   },
   "homepage": "https://github.com/CubeBeveled/server-sided#readme",
-  "description": "",
+  "description": "Adds projects to the collection",
   "dependencies": {
     "axios": "^1.7.9",
     "dotenv": "^16.4.7",
