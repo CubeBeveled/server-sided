@@ -63,6 +63,7 @@ async function main() {
 
       if (
         modVersion.game_versions.includes(modpackVersion) &&
+        modVersion.project_types.includes("mod") &&
         modVersion.loaders.includes("fabric") &&
         file
       ) {
@@ -118,7 +119,7 @@ async function main() {
 
   mods.forEach((mod: ModObject) => {
     modrinthIndex.files.push({
-      path: mod.path,
+      path: path.join("mods", path.basename(mod.path)),
       hashes: mod.hashes,
       env: {
         client: "optional",
@@ -137,7 +138,7 @@ async function main() {
 
   fs.writeFileSync(
     path.join(mrpackPath, `server-sided-${modpackVersion}.mrpack`),
-    zipContent
+    zipContent,
   );
 
   spinner.stop();
@@ -148,15 +149,15 @@ async function main() {
 async function findCollection(userId: string, collectionId: string) {
   try {
     const res = await axios.get(
-      `https://api.modrinth.com/v3/user/${userId}/collections`
+      `https://api.modrinth.com/v3/user/${userId}/collections`,
     );
 
     return res.data.find(
-      (collection: Collection) => collection.id == collectionId
+      (collection: Collection) => collection.id == collectionId,
     );
   } catch (err) {
     console.error(
-      `Error finding collection ${collectionID} for user ${userID}`
+      `Error finding collection ${collectionID} for user ${userID}`,
     );
 
     // @ts-ignore
@@ -166,11 +167,11 @@ async function findCollection(userId: string, collectionId: string) {
 }
 
 async function getProjectMetadata(
-  projectId: any
+  projectId: any,
 ): Promise<ModMetadata | undefined> {
   try {
     const res = await axios.get(
-      `https://api.modrinth.com/v3/project/${projectId}`
+      `https://api.modrinth.com/v3/project/${projectId}`,
     );
 
     return res.data;
@@ -184,11 +185,11 @@ async function getProjectMetadata(
 }
 
 async function getProjectVersions(
-  projectId: string
+  projectId: string,
 ): Promise<ModVersion[] | undefined> {
   try {
     const res = await axios.get(
-      `https://api.modrinth.com/v3/project/${projectId}/version`
+      `https://api.modrinth.com/v3/project/${projectId}/version`,
     );
 
     return res.data;
