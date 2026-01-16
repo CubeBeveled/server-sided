@@ -1,0 +1,29 @@
+{
+  "name": "server-sided-downloader",
+  "version": "0.0.1",
+  "description": "Downloads the mod from the collection",
+  "homepage": "https://github.com/CubeBeveled/server-sided#readme",
+  "bugs": {
+    "url": "https://github.com/CubeBeveled/server-sided/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CubeBeveled/server-sided.git"
+  },
+  "license": "ISC",
+  "author": "Beveled Cube",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "dependencies": {
+    "axios": "^1.13.2",
+    "fs-extra": "^11.3.2",
+    "jszip": "^3.10.1",
+    "ora": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.9"
+  }
+}
