@@ -11,7 +11,7 @@ A modpack that only needs to be installed server side
 # How to install
 * Download the zip from [the latest modpack version](https://modrinth.com/modpack/server-sided/versions)
 * Unzip it
-* Download [Fabric for 1.20.1](https://fabricmc.net/use/server/) and install it
+* Download [the Fabric server for 1.20.1](https://fabricmc.net/use/server/) and install it
 * Run the server by running the fabric server launcher
 
 [Tutorial for installing and running a 1.20 fabric server](https://www.youtube.com/watch?v=sg91I4vg7ew) (make sure to download the mods and put the in the mods directory)
