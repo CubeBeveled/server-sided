@@ -1,45 +1,33 @@
-name: Release tagged version
+name: Create or Update Release with Mods Zip
 
 on:
   push:
     branches:
       - main
 
-concurrency:
-  group: "latest"
-  cancel-in-progress: true
-
 permissions:
   contents: write
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Compress mods folder
+        run: zip -r mods.zip mods
   release:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set release version
-        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-
-      - name: Prepare release folder
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref_name }}
         run: |
-          mkdir -p release
-
-      - name: Create release zip
-        run: |
-          zip -r release/server-sided.zip . \
-              -x ".git/*" \
-              -x ".github/*" \
-              -x "README.md" \
-
-      - name: Release under current tag
-        uses: "0xDylan/action-auto-releases-n20@v1.1"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
-          prerelease: false
-          title: "Latest Mods"
-          files: release/*
+          gh release create "$tag" \
+          --repo="$GITHUB_REPOSITORY" \
+          --title="${tag#v}" \
+          --generate-notes
