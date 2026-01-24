@@ -9,25 +9,34 @@ permissions:
   contents: write
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
       - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Compress mods folder
         run: zip -r mods.zip mods
-  release:
-    runs-on: ubuntu-latest
+      
+      - name: Extract version from config.json
+        id: extract_version
+        run: |
+          VERSION=$(jq -r '.version' scripts/config.json)
+          echo "Extracted version: $VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-    steps:
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ github.ref_name }}
+          VERSION: ${{ steps.extract_version.outputs.version }}
         run: |
-          gh release create "$tag" \
+          gh release create "v$VERSION" \
           --repo="$GITHUB_REPOSITORY" \
-          --title="${tag#v}" \
+          --title="${VERSION}" \
           --generate-notes
+
+          gh release upload "$tag" mods.zip --repo="$GITHUB_REPOSITORY"
