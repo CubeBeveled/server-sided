@@ -39,4 +39,4 @@ jobs:
           --title="${VERSION}" \
           --generate-notes
 
-          gh release upload "$tag" mods.zip --repo="$GITHUB_REPOSITORY"
+          gh release upload "v$VERSION" mods.zip --repo="$GITHUB_REPOSITORY"
